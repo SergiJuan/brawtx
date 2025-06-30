@@ -36,7 +36,7 @@ jobs:
                 <servers>
                   <server>
                     <id>github</id>
-                    <username>${{ github.actor }}</username>
+                    <username>SergiJuan</username>
                     <password>${{ secrets.PERSONAL_ACCESS_TOKEN }}</password>
                   </server>
                 </servers>
@@ -46,4 +46,4 @@ jobs:
       run: mvn clean install
 
     - name: Deploy to GitHub Packages
-      run: mvn deploy
+      run: mvn deploy -X
