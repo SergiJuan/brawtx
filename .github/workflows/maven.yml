@@ -15,11 +15,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up JDK 17
+    - name: Set up JDK 17 and configure Maven for GitHub Packages
       uses: actions/setup-java@v3
       with:
         distribution: temurin
         java-version: 17
+        server-id: github
+        server-username: ${{ github.actor }}
+        server-password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Cache Maven local repository
       uses: actions/cache@v3
@@ -37,5 +40,3 @@ jobs:
 
     - name: Publish to GitHub Packages
       run: mvn deploy
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
