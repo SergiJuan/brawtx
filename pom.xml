@@ -14,13 +14,20 @@
     <description>Librería de ventanas Java basada en AWT y Swing</description>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source> <!-- Cambia a tu versión JDK -->
+        <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>SergiJuan/brawtx Maven Repository</name>
+            <url>https://maven.pkg.github.com/SergiJuan/brawtx</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
-            <!-- Plugin para compilar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -31,23 +38,6 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
-
-            <!-- Opcional: Plugin para generar JAR ejecutable si añades un main -->
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>jua.sergi.brawtx.MainClass</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            -->
-
         </plugins>
     </build>
 </project>
