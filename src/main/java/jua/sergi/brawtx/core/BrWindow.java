@@ -52,6 +52,7 @@ public class BrWindow extends Canvas {
         frame.add(this);
         frame.pack();
         frame.setLocationRelativeTo(null);
+        createBufferStrategy(3);
         frame.setVisible(true);
     }
 
