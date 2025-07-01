@@ -13,41 +13,45 @@ import jua.sergi.brawtx.utils.BrTimer;
  */
 public class SimpleEngine extends BrEngine {
 
-    private final SimpleRenderer simpleRenderer;
-    private final BrKeyboard keyboard;
-    private final BrMouse mouse;
-    private final BrTimer timer = new BrTimer();
+    private final SimpleRenderer simpleRenderer; // Renderer responsible for drawing and movement
+    private final BrKeyboard keyboard;           // Keyboard input handler
+    private final BrMouse mouse;                 // Mouse input handler
 
     /**
      * Constructs the engine with a renderer and starts the timer.
      * @param renderer renderer used for drawing and movement
+     * @param fps target frames per second
+     * @param keyboard keyboard input instance
+     * @param mouse mouse input instance
      */
     public SimpleEngine(SimpleRenderer renderer, int fps, BrKeyboard keyboard, BrMouse mouse) {
         super(renderer, fps);
         this.simpleRenderer = renderer;
         this.keyboard = keyboard;
         this.mouse = mouse;
-        timer.start();
     }
 
     /**
-     * Updates the game logic: moves the rectangle and updates timer.
+     * Updates the game logic every frame.
+     * Moves the rectangle, checks keyboard and mouse inputs,
+     * and prints FPS and delta time to the console.
      */
     @Override
     protected void update() {
+        // Move rectangle to the right each update
         simpleRenderer.moveRight();
 
+        // Check if 'A' key is pressed and print a message
         if (keyboard.isKeyPressed(Key.A)) {
-            System.out.println("AAAAAAAA");
+            System.out.println("A");
         }
 
+        // Check if left mouse button is clicked and print a message
         if (mouse.isButtonPressed(Click.LEFT_CLICK)) {
-            System.out.println("LEEEEEEFT <-----");
+            System.out.println("LEFT <-----");
         }
-        // Update timer each frame to track FPS and delta time
-        timer.update();
 
-        // Debug output for FPS and delta time
-        System.out.println("FPS: " + timer.getFPS() + " | Delta Time: " + timer.getDeltaTime());
+        // Print current FPS and delta time for debugging
+        System.out.println("FPS: " + renderer.getTimer().getFPS() + " | Delta Time: " + renderer.getTimer().getDeltaTime());
     }
 }

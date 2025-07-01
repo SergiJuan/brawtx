@@ -1,8 +1,11 @@
 package jua.sergi.brawtx.core;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * BrWindow encapsulates a JFrame with a Canvas for rendering,
@@ -151,6 +154,44 @@ public class BrWindow extends Canvas {
      */
     public void centerWindow() {
         frame.setLocationRelativeTo(null);
+    }
+
+    /**
+     * Sets the window icon from a given {@link java.awt.Image}.
+     * Useful for setting the icon programmatically.
+     * @param image the image to use as the window icon.
+     */
+    public void setIcon(Image image) {
+        frame.setIconImage(image);
+    }
+
+    /**
+     * Sets the window icon from a given image file path.
+     * Useful for loading icons directly from disk or resources.
+     * @param path path to the image file (e.g., "assets/icon.png").
+     */
+    public void setIcon(String path) {
+        ImageIcon icon = new ImageIcon(path);
+        frame.setIconImage(icon.getImage());
+    }
+
+    /**
+     * Sets the window icon loading the image from the classpath resources folder.
+     * The image must be accessible desde el classpath, por ejemplo dentro de src/main/resources.
+     * @param resourcePath path relativo dentro del classpath, e.g. "icon.png" o "images/icon.png"
+     */
+    public void setIconFromResource(String resourcePath) {
+        URL url = getClass().getClassLoader().getResource(resourcePath);
+        if (url == null) {
+            System.err.println("Icon resource not found: " + resourcePath);
+            return;
+        }
+        try {
+            Image image = ImageIO.read(url);
+            frame.setIconImage(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

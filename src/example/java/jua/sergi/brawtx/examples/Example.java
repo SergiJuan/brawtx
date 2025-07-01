@@ -12,39 +12,44 @@ import java.io.IOException;
 public class Example {
 
     public static void main(String[] args) {
+        // Create a window with title and size
         BrWindow window = new BrWindow("Mini Project Test", 800, 600);
 
-        // Create renderer
+        // Create the renderer associated with the window
         SimpleRenderer renderer = new SimpleRenderer(window);
 
-        // Create engine with renderer and optional FPS parameter (default is 60 if not specified)
-
+        // Create input handlers for keyboard and mouse
         BrKeyboard keyboard = new BrKeyboard();
         BrMouse mouse = new BrMouse();
+
+        // Register input listeners on the window
         window.addKeyListener(keyboard);
         window.addMouseListener(mouse);
         window.setFocusable(true);
         window.requestFocus();
 
-        SimpleEngine engine = new SimpleEngine(renderer, 60, keyboard, mouse);  // 30 FPS, can omit to use default 60 FPS
+        // Set window icon from resources
+        window.setIconFromResource("icon.png");
+
+        // Create the game engine with renderer, FPS, and input handlers
+        SimpleEngine engine = new SimpleEngine(renderer, 30, keyboard, mouse);  // 30 FPS, defaults to 60 if omitted
 
         BrAudioPlayer bgMusic = null;
         try {
+            // Load background music from WAV file
             bgMusic = new BrAudioPlayer("background.wav");
-        } catch (UnsupportedAudioFileException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (LineUnavailableException e) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            // Handle audio loading exceptions
             throw new RuntimeException(e);
         }
-        bgMusic.loop();
-        bgMusic.setVolume(0.7f); // 50%
-        //bgMusic.pause();
-        //bgMusic.resume();
-        //bgMusic.stop();
 
-        // Start the loop
+        // Play background music in loop
+        bgMusic.loop();
+
+        // Set volume (0.7f = 70%)
+        bgMusic.setVolume(0.7f);
+
+        // Start the main game loop
         engine.start();
     }
 }
