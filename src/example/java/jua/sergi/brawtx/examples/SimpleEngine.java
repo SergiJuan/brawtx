@@ -5,7 +5,6 @@ import jua.sergi.brawtx.inputs.BrKeyboard;
 import jua.sergi.brawtx.inputs.BrMouse;
 import jua.sergi.brawtx.inputs.Click;
 import jua.sergi.brawtx.inputs.Key;
-import jua.sergi.brawtx.utils.BrTimer;
 
 /**
  * Simple engine that moves a rectangle horizontally,
@@ -40,6 +39,8 @@ public class SimpleEngine extends BrEngine {
     protected void update() {
         // Move rectangle to the right each update
         simpleRenderer.moveRight();
+        // Move cow to the right each update
+        simpleRenderer.moveCow();
 
         // Check if 'A' key is pressed and print a message
         if (keyboard.isKeyPressed(Key.A)) {
