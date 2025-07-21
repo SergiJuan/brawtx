@@ -10,7 +10,7 @@
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
-    <name>BrAwTx Core</name>
+    <name>brawtx</name>
     <description>Librería de ventanas Java basada en AWT y Swing</description>
 
     <properties>
@@ -36,6 +36,17 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

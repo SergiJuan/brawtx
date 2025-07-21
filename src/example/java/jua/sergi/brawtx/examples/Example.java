@@ -32,7 +32,7 @@ public class Example {
         window.setIconFromResource("icon.png");
 
         // Create the game engine with renderer, FPS, and input handlers
-        SimpleEngine engine = new SimpleEngine(renderer, 60, keyboard, mouse);  // 30 FPS, defaults to 60 if omitted
+        SimpleEngine engine = new SimpleEngine(renderer, 120, keyboard, mouse);  // 30 FPS, defaults to 60 if omitted
 
         BrAudioPlayer bgMusic = null;
         try {
