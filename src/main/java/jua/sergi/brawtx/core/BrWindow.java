@@ -186,10 +186,25 @@ public class BrWindow extends Canvas {
             System.err.println("Icon resource not found: " + resourcePath);
             return;
         }
+
         try {
             Image image = ImageIO.read(url);
             frame.setIconImage(image);
+
+            // if os == macOS
+            if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+                if (Taskbar.isTaskbarSupported()) {
+                    Taskbar taskbar = Taskbar.getTaskbar();
+                    try {
+                        taskbar.setIconImage(image);
+                    } catch (UnsupportedOperationException | SecurityException e) {
+                        System.err.println("No se pudo establecer el icono del Dock.");
+                        e.printStackTrace();
+                    }
+                }
+            }
         } catch (IOException e) {
+            System.err.println("Error loading icon image from resource.");
             e.printStackTrace();
         }
     }
