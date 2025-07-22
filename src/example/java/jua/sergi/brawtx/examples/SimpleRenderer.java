@@ -8,6 +8,8 @@ import jua.sergi.brawtx.graphics.image.BrImageRenderer;
 import jua.sergi.brawtx.graphics.text.BrTextOptions;
 import jua.sergi.brawtx.graphics.text.BrTextRenderer;
 import jua.sergi.brawtx.graphics.text.align.BrTextAlign;
+import jua.sergi.brawtx.ui.BrUIButton;
+import jua.sergi.brawtx.ui.BrUIManager;
 
 import java.awt.*;
 
@@ -24,6 +26,8 @@ public class SimpleRenderer extends BrRenderer {
 
     private final BrAnimation walkAnimation; // Animation instance for walking frames
 
+    private final BrUIManager uiManager = new BrUIManager();
+
     public SimpleRenderer(BrWindow window) {
         super(window, true);
         playerImage = loader.load("Cow.png");  // Load the player image from file
@@ -31,6 +35,21 @@ public class SimpleRenderer extends BrRenderer {
         // Create a walking animation using frames 4 and 6 from the sprite sheet
         // Each frame is 32x32 pixels, frame duration is 100 milliseconds
         walkAnimation = new BrAnimation(playerImage, 32, 32, new int[]{4, 6}, 100);
+
+        BrUIButton myButton = new BrUIButton(340, 420, 120, 50, "Leave")
+                .withFont(new Font("Arial", Font.BOLD, 23))
+                .withBackgroundColor(new Color(190, 3, 3))
+                .withHoverColor(new Color(219, 47, 47))
+                .withHoverScale(1.05f)
+                .withBorderRadius(12)
+                .withPadding(6)
+                .withTextColor(Color.WHITE)
+                .onClick(() ->
+                        System.exit(0)
+                );
+
+        uiManager.addComponent(myButton);
+        uiManager.attachTo(window);
     }
 
     @Override
@@ -61,6 +80,9 @@ public class SimpleRenderer extends BrRenderer {
         walkAnimation.setAnimationRow(1);
         // Update the animation frame based on elapsed time
         walkAnimation.update();
+
+        Graphics2D g2d = (Graphics2D) g; // ← Para usar con uiManager
+        uiManager.render(g2d);
 
         // Draw the current frame of the walking animation at position (xcow, 450)
         // Scale by 4 times original size
